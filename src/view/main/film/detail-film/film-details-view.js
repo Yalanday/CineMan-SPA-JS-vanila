@@ -1,8 +1,8 @@
-import {createElement} from '../render.js';
-import {createFilmDetailsInfoTemplate} from './film-details-info-template.js';
-import {createFilmDetailsCommentsTemplate} from './film-details-comments-template.js';
-import {createFilmDetailsFormTemplate} from './film-details-form-template.js';
-import {createFilmDetailsControlsTemplate} from './film-details-controls-template.js';
+import {createElement} from '../../../../render.js';
+import {createFilmDetailsInfoTemplate} from './template/film-details-info-template.js';
+import {createFilmDetailsCommentsTemplate} from './template/film-details-comments-template.js';
+import {createFilmDetailsFormTemplate} from './template/film-details-form-template.js';
+import {createFilmDetailsControlsTemplate} from './template/film-details-controls-template.js';
 
 const createFilmDetailsTemplate = () =>
   `

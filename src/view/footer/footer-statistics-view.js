@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import {createElement} from '../../render.js';
 
 const createFooterStatisticsTemplate = () => '<p>130 291 movies inside</p>';
 
