@@ -1,6 +1,6 @@
-import HeaderProfileView from './view/header-profile-view.js';
-import FilterView from './view/filter-view.js';
-import FooterStatisticView from './view/footer-statistics-view.js';
+import HeaderProfileView from './view/header/header-profile-view.js';
+import FilterView from './view/main/film/filter-view.js';
+import FooterStatisticView from './view/footer/footer-statistics-view.js';
 import FilmsPresenter from './presenter/films-presenter.js';
 
 import {render} from './render.js';

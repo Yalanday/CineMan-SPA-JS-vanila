@@ -1,10 +1,10 @@
-import SortView from '../view/sort-view.js';
-import FilmsView from '../view/films-view.js';
-import FilmListView from '../view/film-list-view.js';
-import FilmListContainerView from '../view/film-list-container-view.js';
-import FilmButtonMoreView from '../view/film-button-more-view.js';
-import FilmCardView from '../view/film-card-view.js';
-import FilmDetailsView from '../view/film-details-view.js';
+import SortView from '../view/main/film/sort-view.js';
+import FilmsView from '../view/main/film/list-film/films-view.js';
+import FilmListView from '../view/main/film/list-film/film-list-view.js';
+import FilmListContainerView from '../view/main/film/list-film/film-list-container-view.js';
+import FilmButtonMoreView from '../view/main/film-button-more-view.js';
+import FilmCardView from '../view/main/film/card-film/film-card-view.js';
+import FilmDetailsView from '../view/main/film/detail-film/film-details-view.js';
 
 import {render} from '../render.js';
 

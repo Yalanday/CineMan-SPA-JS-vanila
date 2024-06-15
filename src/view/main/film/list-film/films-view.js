@@ -1,6 +1,5 @@
-import {createElement} from '../render.js';
-
-const createFilmsViewTemplate = () => '<section class="films"></section>';
+import {createElement} from '../../../../render.js';
+import {createFilmsViewTemplate} from "./template/create-films-view-template";
 
 export default class FilmsView {
   getTemplate() {

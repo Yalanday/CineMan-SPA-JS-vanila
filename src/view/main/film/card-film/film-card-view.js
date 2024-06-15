@@ -1,6 +1,6 @@
-import {createElement} from '../render.js';
-import {createFilmCardInfoTemplate} from './film-card-info-template.js';
-import {createFilmCardControlsTemplate} from './film-card-controls-template.js';
+import {createElement} from '../../../../render.js';
+import {createFilmCardInfoTemplate} from './template/film-card-info-template.js';
+import {createFilmCardControlsTemplate} from './template/film-card-controls-template.js';
 
 const createFilmCardTemplate = () =>
   `
