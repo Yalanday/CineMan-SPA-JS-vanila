@@ -1,5 +1,7 @@
 const NAME_COUNT = 2;
-const FILM_COUNT = 5;
+const FILM_COUNT = 8;
+
+const FILM_COUNT_PER_STEP = 5;
 
 const MAX_COMMENTS_ON_FILM = 5;
 
@@ -105,6 +107,7 @@ const countries = ['USA', 'Russia', 'Germany', 'Finland', 'France', 'Spain', 'It
 export {
   NAME_COUNT,
   FILM_COUNT,
+  FILM_COUNT_PER_STEP,
   MAX_COMMENTS_ON_FILM,
   GenreCount,
   Rating,
