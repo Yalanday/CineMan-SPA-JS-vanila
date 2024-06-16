@@ -22,21 +22,21 @@ export default class FilmsPresenter {
     this.filmsModel = filmsModel;
     this.commentsModel = commentsModel;
 
-    this.films = [...filmsModel.get()];
+    this.films = [...filmsModel.films];
 
     console.log(this.films)
     console.log(this.commentsModel)
 
     render(this.sortComponent, this.container);
     render(this.filmsComponent, this.container);
-    render(this.filmListComponent, this.filmsComponent.getElement());
-    render(this.filmListContainerComponent, this.filmListComponent.getElement());
+    render(this.filmListComponent, this.filmsComponent.element);
+    render(this.filmListContainerComponent, this.filmListComponent.element);
 
     for (let i = 0; i < this.films.length; i++) {
-      render(new FilmCardView(this.films[i]), this.filmListContainerComponent.getElement());
+      render(new FilmCardView(this.films[i]), this.filmListContainerComponent.element);
     }
 
-    render(this.filmButtonMoreComponent, this.filmListComponent.getElement());
+    render(this.filmButtonMoreComponent, this.filmListComponent.element);
 
     const comments = [...this.commentsModel.get(this.films[0])];
 

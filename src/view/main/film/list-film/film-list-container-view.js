@@ -2,19 +2,20 @@ import {createElement} from '../../../../render.js';
 import {createFilmListContainerViewTemplate} from "./template/create-film-list-container-view-template";
 
 export default class FilmListContainerView {
-  getTemplate() {
+  #element = null;
+  get template() {
     return createFilmListContainerViewTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
