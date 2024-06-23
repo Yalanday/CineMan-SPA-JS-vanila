@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 module.exports = {
   entry: './src/main.js',
@@ -10,17 +11,18 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new NodePolyfillPlugin(),
     new CopyPlugin({
-      patterns: [{ from: 'public' }],
+      patterns: [{from: 'public'}],
     }),
   ],
   module: {
     rules: [
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          use: ['babel-loader']
-        },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: ['babel-loader']
+      },
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader']

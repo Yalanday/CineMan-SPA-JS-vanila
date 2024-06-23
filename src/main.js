@@ -4,8 +4,7 @@ import FooterStatisticView from './view/footer/footer-statistics-view.js';
 import FilmsPresenter from './presenter/films-presenter.js';
 import FilmsModel from "./model/films-model";
 import CommentsModel from "./model/comments-model";
-
-import {render} from './render.js';
+import {render} from "./framework/render";
 
 const bodyElement = document.querySelector('body');
 const siteHeaderElement = bodyElement.querySelector('.header');
