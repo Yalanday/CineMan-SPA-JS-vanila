@@ -5,6 +5,10 @@ import FilmsPresenter from './presenter/films-presenter.js';
 import FilmsModel from "./model/films-model";
 import CommentsModel from "./model/comments-model";
 import {render} from "./framework/render";
+import {generateFilter} from "./mock/filter";
+import {getUserStatus} from "./util/users";
+
+
 
 const bodyElement = document.querySelector('body');
 const siteHeaderElement = bodyElement.querySelector('.header');
@@ -15,9 +19,13 @@ const filmsPresenter = new FilmsPresenter();
 const filmsModel = new FilmsModel();
 const commentsModel = new CommentsModel(filmsModel);
 
-render(new HeaderProfileView(), siteHeaderElement);
-render(new FilterView(), siteMainElement);
-render(new FooterStatisticView(), siteFooterStatisticsElement);
+const userStatus  = getUserStatus(filmsModel.films);
+const filters = generateFilter(filmsModel.films);
+const filmCount  = filmsModel.films.length;
+
+render(new HeaderProfileView(userStatus), siteHeaderElement);
+render(new FilterView(filters), siteMainElement);
+render(new FooterStatisticView(filmCount), siteFooterStatisticsElement);
 
 
 filmsPresenter.init(siteMainElement, filmsModel, commentsModel);
