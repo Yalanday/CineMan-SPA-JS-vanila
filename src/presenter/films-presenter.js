@@ -6,8 +6,7 @@ import FilmListContainerView from '../view/main/film/list-film/film-list-contain
 import FilmButtonMoreView from '../view/main/film-button-more-view.js';
 import FilmCardView from '../view/main/film/card-film/film-card-view.js';
 import FilmDetailsView from '../view/main/film/detail-film/film-details-view.js';
-
-import {render} from '../render.js';
+import {render} from "../framework/render";
 import {FILM_COUNT_PER_STEP} from "../util/const";
 
 
@@ -40,20 +39,12 @@ export default class FilmsPresenter {
     this.#films = [...this.#filmsModel.films];
 
     this.#renderFilmBoard();
-
-
   };
 
   #renderFilm(film, container) {
     const filmCardComponent = new FilmCardView(film);
 
-    const linkFilmCardElement = filmCardComponent.element.querySelector('a');
-    linkFilmCardElement.addEventListener('click', () => {
-      if (this.#filmDetailsComponent !== null) {
-        this.#filmDetailsComponent.element.remove();
-        this.#filmDetailsComponent = null;
-      }
-
+    filmCardComponent.setCardClickHandler(() => {
       this.#addFilmDetailsComponent(film);
       document.addEventListener('keydown', this.#onEscKeyDown);
     });
@@ -65,9 +56,8 @@ export default class FilmsPresenter {
 
     this.#filmDetailsComponent = new FilmDetailsView(film, comments);
 
-    const closeButtonFilmDetailsElement = this.#filmDetailsComponent.element.querySelector('.film-details__close-btn');
 
-    closeButtonFilmDetailsElement.addEventListener('click', () => {
+    this.#filmDetailsComponent.setCloseBtnClickHandler(() => {
       this.#removeFilmDetailsComponent();
       document.removeEventListener('keydown', this.#onEscKeyDown);
     })
@@ -93,7 +83,6 @@ export default class FilmsPresenter {
   };
 
   #filmButtonMoreClickHandler(evt) {
-    evt.preventDefault();
 
     this.#films
         .slice(this.#renderedFilmCount, this.#renderedFilmCount + FILM_COUNT_PER_STEP)
@@ -110,7 +99,6 @@ export default class FilmsPresenter {
   }
 
   #renderFilmBoard() {
-    console.log('render arbeiten')
     if (this.#films.length === 0) {
       render(new FilmListEmptyView(), this.#container);
       return;
@@ -128,9 +116,7 @@ export default class FilmsPresenter {
 
     if (this.#films.length > FILM_COUNT_PER_STEP) {
       render(this.#filmButtonMoreComponent, this.#filmListComponent.element);
-      this.#filmButtonMoreComponent
-          .element
-          .addEventListener('click', (evt) => this.#filmButtonMoreClickHandler(evt));
+      this.#filmButtonMoreComponent.setButtonClickHandler(() => this.#filmButtonMoreClickHandler());
     }
   }
 }
