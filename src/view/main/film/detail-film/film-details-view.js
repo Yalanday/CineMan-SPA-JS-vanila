@@ -1,11 +1,11 @@
-import {createElement} from '../../../../render.js';
 import {createFilmDetailsInfoTemplate} from './template/film-details-info-template.js';
 import {createFilmDetailsCommentsTemplate} from './template/film-details-comments-template.js';
 import {createFilmDetailsFormTemplate} from './template/film-details-form-template.js';
 import {createFilmDetailsControlsTemplate} from './template/film-details-controls-template.js';
+import AbstractView from "../../../../framework/view/abstract-view";
 
 const createFilmDetailsTemplate = ({filmInfo}, comments) =>
-  `
+    `
     <section class="film-details">
       <div class="film-details__inner">
         <div class="film-details__top-container">
@@ -33,27 +33,27 @@ const createFilmDetailsTemplate = ({filmInfo}, comments) =>
     </section>
   `;
 
-export default class FilmDetailsView {
-  #element = null;
+export default class FilmDetailsView extends AbstractView {
   #film = null;
   #comments = null;
+
   constructor(film, comments) {
+    super();
     this.#film = film;
     this.#comments = comments;
   }
+
   get template() {
     return createFilmDetailsTemplate(this.#film, this.#comments);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
+  setCloseBtnClickHandler(callback) {
+    this._callback.closeBtnClick = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
   }
 
-  removeElement() {
-    this.#element = null;
+  #closeBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.closeBtnClick();
   }
 }
