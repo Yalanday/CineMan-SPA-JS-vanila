@@ -1,5 +1,5 @@
 const NAME_COUNT = 2;
-const FILM_COUNT = 8;
+const FILM_COUNT = 12546;
 
 const FILM_COUNT_PER_STEP = 5;
 
@@ -33,6 +33,11 @@ const YearsDuration = {
 const DaysDuration = {
   MIN: 0,
   MAX: 7
+};
+
+const DateType = {
+  FILM_INFO: 'FILM_INFO',
+  USER_DETAILS: 'USER_DETAILS'
 };
 
 const names = [
@@ -104,6 +109,30 @@ const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a
 
 const countries = ['USA', 'Russia', 'Germany', 'Finland', 'France', 'Spain', 'Italy', 'China', 'Japan'];
 
+
+const FILTER_TYPE_ALL_NAME = 'All movies';
+
+const FilterType = {
+  ALL: 'all',
+  WATCHLIST: 'watchlist',
+  HISTORY: 'history',
+  FAVORITES: 'favorites',
+};
+
+const UserStatusValue = {
+  NOVICE: 0,
+  FAN: 10,
+  MOVIE_BUFF: 20,
+};
+
+const UserStatusTitle = {
+  NOVICE: 'Novice',
+  FAN: 'Fan',
+  MOVIE_BUFF: 'Movie Buff',
+};
+
+
+
 export {
   NAME_COUNT,
   FILM_COUNT,
@@ -123,5 +152,10 @@ export {
   EMOTIONS,
   description,
   comment,
-  countries
+  countries,
+  DateType,
+  FILTER_TYPE_ALL_NAME,
+  FilterType,
+  UserStatusValue,
+  UserStatusTitle
 };
