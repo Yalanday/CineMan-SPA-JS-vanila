@@ -1,4 +1,3 @@
-import {createElement} from '../../../../render.js';
 import {createFilmsViewTemplate} from "./template/create-films-view-template";
 import AbstractView from "../../../../framework/view/abstract-view";
 

@@ -1,8 +1,6 @@
 import AbstractView from "../../../framework/view/abstract-view";
 import {FILTER_TYPE_ALL_NAME, FilterType} from "../../../util/const";
 
-
-
 const createFilterItemTemplate = ({name, count}, isActive) => {
   const getFilterName = (filterName) => (filterName === FilterType.ALL)
       ? FILTER_TYPE_ALL_NAME
