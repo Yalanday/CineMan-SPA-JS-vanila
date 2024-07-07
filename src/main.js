@@ -15,17 +15,17 @@ const siteHeaderElement = bodyElement.querySelector('.header');
 const siteMainElement = bodyElement.querySelector('.main');
 const siteFooterElement = bodyElement.querySelector('.footer');
 const siteFooterStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
-const filmsPresenter = new FilmsPresenter();
 const filmsModel = new FilmsModel();
 const commentsModel = new CommentsModel(filmsModel);
+const filmsPresenter = new FilmsPresenter(siteMainElement, filmsModel, commentsModel);
 
-const userStatus  = getUserStatus(filmsModel.films);
-const filters = generateFilter(filmsModel.films);
-const filmCount  = filmsModel.films.length;
+const userStatus  = getUserStatus(filmsModel.get());
+const filters = generateFilter(filmsModel.get());
+const filmCount  = filmsModel.get().length;
 
 render(new HeaderProfileView(userStatus), siteHeaderElement);
 render(new FilterView(filters), siteMainElement);
 render(new FooterStatisticView(filmCount), siteFooterStatisticsElement);
 
 
-filmsPresenter.init(siteMainElement, filmsModel, commentsModel);
+filmsPresenter.init();
