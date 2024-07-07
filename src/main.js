@@ -9,23 +9,23 @@ import {generateFilter} from "./mock/filter";
 import {getUserStatus} from "./util/users";
 
 
-
 const bodyElement = document.querySelector('body');
 const siteHeaderElement = bodyElement.querySelector('.header');
 const siteMainElement = bodyElement.querySelector('.main');
 const siteFooterElement = bodyElement.querySelector('.footer');
 const siteFooterStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
+
 const filmsModel = new FilmsModel();
 const commentsModel = new CommentsModel(filmsModel);
+
 const filmsPresenter = new FilmsPresenter(siteMainElement, filmsModel, commentsModel);
 
-const userStatus  = getUserStatus(filmsModel.get());
+const userStatus = getUserStatus(filmsModel.get());
 const filters = generateFilter(filmsModel.get());
-const filmCount  = filmsModel.get().length;
+const filmCount = filmsModel.get().length;
 
 render(new HeaderProfileView(userStatus), siteHeaderElement);
 render(new FilterView(filters), siteMainElement);
 render(new FooterStatisticView(filmCount), siteFooterStatisticsElement);
-
 
 filmsPresenter.init();

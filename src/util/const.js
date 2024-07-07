@@ -131,6 +131,17 @@ const UserStatusTitle = {
   MOVIE_BUFF: 'Movie Buff',
 };
 
+const SortType = {
+  DEFAULT: 'default',
+  DATE: 'date',
+  RATING: 'rating',
+};
+
+const sortFilmsByDate = (filmA, filmB) =>
+    new Date(filmB.filmInfo.release.date) - new Date(filmA.filmInfo.release.date);
+
+const sortFilmsByRating = (filmA, filmB) =>
+    filmB.filmInfo.totalRating - filmA.filmInfo.totalRating;
 
 
 export {
@@ -157,5 +168,8 @@ export {
   FILTER_TYPE_ALL_NAME,
   FilterType,
   UserStatusValue,
-  UserStatusTitle
+  UserStatusTitle,
+  SortType,
+  sortFilmsByDate,
+  sortFilmsByRating
 };
