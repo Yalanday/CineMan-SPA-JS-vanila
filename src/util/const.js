@@ -170,6 +170,4 @@ export {
   UserStatusValue,
   UserStatusTitle,
   SortType,
-  sortFilmsByDate,
-  sortFilmsByRating
 };

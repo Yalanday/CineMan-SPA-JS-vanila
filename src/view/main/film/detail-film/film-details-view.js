@@ -2,9 +2,9 @@ import {createFilmDetailsInfoTemplate} from './template/film-details-info-templa
 import {createFilmDetailsCommentsTemplate} from './template/film-details-comments-template.js';
 import {createFilmDetailsFormTemplate} from './template/film-details-form-template.js';
 import {createFilmDetailsControlsTemplate} from './template/film-details-controls-template.js';
-import AbstractView from "../../../../framework/view/abstract-view";
+import AbstractStatefulView from "../../../../framework/view/abstract-stateful-view";
 
-const createFilmDetailsTemplate = ({filmInfo, userDetails}, comments) =>
+const createFilmDetailsTemplate = ({filmInfo, userDetails, comments, checkedEmotion, comment}) =>
     `
     <section class="film-details">
       <div class="film-details__inner">
@@ -25,7 +25,7 @@ const createFilmDetailsTemplate = ({filmInfo, userDetails}, comments) =>
 
             ${createFilmDetailsCommentsTemplate(comments)}
 
-            ${createFilmDetailsFormTemplate()}
+            ${createFilmDetailsFormTemplate(checkedEmotion, comment)}
 
           </section>
         </div>
@@ -33,18 +33,37 @@ const createFilmDetailsTemplate = ({filmInfo, userDetails}, comments) =>
     </section>
   `;
 
-export default class FilmDetailsView extends AbstractView {
-  #film = null;
-  #comments = null;
+export default class FilmDetailsView extends AbstractStatefulView {
 
-  constructor(film, comments) {
+
+  constructor(film, comments, viewData, updateViewData) {
     super();
-    this.#film = film;
-    this.#comments = comments;
+    this._state = FilmDetailsView.parseFilmToState(
+        film,
+        comments,
+        viewData.emotion,
+        viewData.comment,
+        viewData.scrollPosition
+    );
+    this.updateViewData = updateViewData;
+    this.#setInnerHandlers();
   }
 
   get template() {
-    return createFilmDetailsTemplate(this.#film, this.#comments);
+    return createFilmDetailsTemplate(this._state);
+  }
+
+  _restoreHandlers = () => {
+    this.setScrollPosition();
+    this.#setInnerHandlers();
+    this.setCloseBtnClickHandler(this._callback.closeBtnClick);
+    this.setWatchlistBtnClickHandler(this._callback.watchlistBtnClick);
+    this.setWatchedBtnClickHandler(this._callback.watchedBtnClick);
+    this.setFavoriteBtnClickHandler(this._callback.favoriteBtnClick);
+  }
+
+  setScrollPosition() {
+    this.element.scrollTop = this._state.scrollPosition;
   }
 
   setCloseBtnClickHandler(callback) {
@@ -52,17 +71,17 @@ export default class FilmDetailsView extends AbstractView {
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
   }
 
-  setWatchlistBtnClickHandler(callback)  {
+  setWatchlistBtnClickHandler(callback) {
     this._callback.watchlistBtnClick = callback;
     this.element.querySelector('.film-details__control-button--watchlist').addEventListener('click', this.#watchlistBtnClickHandler);
   }
 
-  setWatchedBtnClickHandler(callback)  {
+  setWatchedBtnClickHandler(callback) {
     this._callback.watchedBtnClick = callback;
     this.element.querySelector('.film-details__control-button--watched').addEventListener('click', this.#watchedBtnClickHandler);
   }
 
-  setFavoriteBtnClickHandler(callback)  {
+  setFavoriteBtnClickHandler(callback) {
     this._callback.favoriteBtnClick = callback;
     this.element.querySelector('.film-details__control-button--favorite').addEventListener('click', this.#favoriteBtnClickHandler);
   }
@@ -76,13 +95,48 @@ export default class FilmDetailsView extends AbstractView {
     this._callback.watchlistBtnClick();
   };
 
-  #watchedBtnClickHandler  =  (evt)  =>  {
+  #watchedBtnClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.watchedBtnClick();
   }
 
-  #favoriteBtnClickHandler  =  (evt)  =>  {
+  #favoriteBtnClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.favoriteBtnClick();
   }
+
+  #emotionClickHandler = (evt) => {
+    evt.preventDefault();
+    this.updateElement({
+      checkedEmotion: evt.currentTarget.dataset.emotionType,
+      scrollPosition: this.element.scrollTop
+    })
+  }
+
+  #commentInputChangeHandler = (evt) => {
+    evt.preventDefault();
+    this._setState({comment: evt.target.value})
+  }
+
+  #setInnerHandlers = () => {
+    this.element.querySelectorAll('.film-details__add-emoji-label').forEach((element) => {
+      element.addEventListener('click', this.#emotionClickHandler);
+    });
+    this.element.querySelector('.film-details__comment-input').addEventListener('input', this.#commentInputChangeHandler);
+  }
+
+  static parseFilmToState = (
+      film,
+      comments,
+      checkedEmotion = null,
+      comment = null,
+      scrollPosition = 0
+  ) => (
+      {
+        ...film,
+        comments,
+        checkedEmotion,
+        comment,
+        scrollPosition
+      });
 }

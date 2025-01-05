@@ -7,10 +7,11 @@ import FilmButtonMoreView from '../view/main/film-button-more-view.js';
 // import FilmCardView from '../view/main/film/card-film/film-card-view.js';
 // import FilmDetailsView from '../view/main/film/detail-film/film-details-view.js';
 import {render, remove, replace} from "../framework/render";
-import {FILM_COUNT_PER_STEP, SortType, sortFilmsByDate, sortFilmsByRating} from "../util/const";
+import {FILM_COUNT_PER_STEP, SortType} from "../util/const";
 import FilmPresenter from "./film-presenter";
 import FilmDetailsPresenter from "./film-details-presenter";
 import {updateItem} from "../util/util";
+import {sortFilmsByDate, sortFilmsByRating} from "../util/film";
 
 
 export default class FilmsPresenter {
